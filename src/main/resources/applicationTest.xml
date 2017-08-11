@@ -32,5 +32,6 @@
     </bean>
 
     <bean class="cn.zxy.applicationContext.event.ApplicationListenerTest"></bean>
+    <bean class="cn.zxy.applicationContext.lifecycle.MyLifeCycle"></bean>
 
 </beans>

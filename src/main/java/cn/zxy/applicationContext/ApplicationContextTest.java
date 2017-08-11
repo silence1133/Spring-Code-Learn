@@ -1,10 +1,13 @@
 package cn.zxy.applicationContext;
 
+import cn.zxy.applicationContext.annotationbean.AnnotationBean;
 import cn.zxy.applicationContext.event.ApplicationEventTest;
 import cn.zxy.bean.BeanTest;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.LiveBeansView;
 
 import java.util.Locale;
 
@@ -34,4 +37,28 @@ public class ApplicationContextTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationTest.xml");
         context.publishEvent(new ApplicationEventTest("test"));
     }
+
+
+    @Test
+    public void contextLifeCycle() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationTest.xml");
+        context.start();
+        context.stop();
+        BeanTest beanTest = context.getBean(BeanTest.class);
+    }
+
+    @Test
+    public void liveBeansView(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationTest.xml");
+        LiveBeansView liveBeansView = new LiveBeansView();
+            System.out.println(liveBeansView.getSnapshotAsJson());
+    }
+
+    @Test
+    public void annotationApplciation(){
+        ApplicationContext context = new AnnotationConfigApplicationContext("cn.zxy");
+        AnnotationBean annotationBean = context.getBean(AnnotationBean.class);
+
+    }
+
 }
